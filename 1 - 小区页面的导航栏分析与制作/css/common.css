@@ -1,0 +1,33 @@
+/* 
+* @Author: 陈能堡 - 梦幻雪冰
+* @Date:   2015-12-15 21:21:00
+* @Last Modified by:   陈能堡 - 梦幻雪冰
+* @Last Modified time: 2016-05-31 09:20:19
+*/
+html, body {
+    height: 100%;
+}
+.com-footer,
+.com-header {
+    position: fixed;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+}
+/*头部导航*/
+.com-header {
+    top: 0;
+    height: 2rem;
+    background-color: skyblue;
+}
+/*底部区域*/
+.com-footer {
+    bottom: 0;
+    height: 2rem;
+    background-color: pink;
+}
+/******************/
+.main {
+    width: 10rem;
+    margin: 0 auto;            
+}
