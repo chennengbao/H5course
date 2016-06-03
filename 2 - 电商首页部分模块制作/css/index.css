@@ -1,0 +1,273 @@
+@charset "utf-8";
+html,
+body {
+  height: 100%;
+}
+/* 布局开始 */
+.wrap {
+  margin: 0 auto;
+  max-width: 640px;
+  min-width: 320px;
+}
+/* 处理搜索框 */
+.search {
+  padding: 17px 0 13px 0;
+  background-color: #f9f9f9;
+  /* 模拟边框 */
+}
+.search > div {
+  position: relative;
+  width: 71.09375%;
+  height: 30px;
+  margin: 0 auto;
+  padding: 0 0 4px 2.34375%;
+  border-bottom: 2px solid #db0000;
+}
+.search > div:after,
+.search > div:before {
+  position: absolute;
+  bottom: 0;
+  width: 2px;
+  height: 5px;
+  content: " ";
+  background-color: #db0000;
+}
+.search > div:before {
+  left: 0;
+}
+.search > div:after {
+  right: 0;
+}
+.search span {
+  position: relative;
+  float: left;
+  height: 30px;
+  margin-right: 10.98901099%;
+  line-height: 30px;
+  font-size: 24px;
+}
+.search span:after {
+  position: absolute;
+  right: -18px;
+  top: 0;
+  width: 14px;
+  height: 30px;
+  background: url('../images/location.png') no-repeat;
+  content: " ";
+}
+.search input {
+  float: left;
+  height: 30px;
+  width: 52.74725275%;
+  padding-left: 32px;
+  border: none;
+  background: url('../images/ipt_bg.png') left center no-repeat;
+  background-size: auto 100%;
+  line-height: 30px;
+  font-size: 22px;
+  outline: none;
+}
+.search input::-webkit-input-placeholder {
+  color: #adadad;
+}
+.search input:-ms-input-placeholder {
+  color: #adadad;
+}
+.search input:-moz-placeholder {
+  color: #adadad;
+}
+.search input::-moz-placeholder {
+  color: #adadad;
+}
+/* 广告模块 */
+.advert {
+  overflow: hidden;
+  height: 4.21875rem;
+}
+.advert img {
+  display: block;
+  width: 100%;
+}
+/* 商品模块 */
+.goods-con {
+  padding: 0 9px;
+  margin-bottom: 11px;
+}
+.local {
+  margin-top: 12px;
+  padding: 11px 2.5%;
+  border: 1px solid #ccccce;
+  border-radius: 7px;
+}
+.local strong {
+  float: left;
+  width: 54.51448041%;
+  height: 40px;
+  padding-left: 16px;
+  background: #c82829 url('../images/tit_bg.png') right center no-repeat;
+  background-size: auto 100%;
+  line-height: 40px;
+  color: #fff;
+  font-size: 20px;
+}
+.local a {
+  float: right;
+  color: #717171;
+  font-size: 20px;
+}
+.local-con {
+  overflow: hidden;
+}
+.local-con > div {
+  width: 105.62180579%;
+}
+.local-con dl {
+  float: left;
+  width: 45.16129032%;
+  margin: 15px 4.83870968% 0 0;
+}
+.local-con dd,
+.local-con dt,
+.local-con a {
+  float: left;
+}
+.local-con dd {
+  width: 100%;
+  margin-top: 13px;
+}
+.local-con img {
+  display: block;
+  width: 100%;
+  border: 1px solid #c8c9c8;
+}
+.local-con dt a {
+  position: relative;
+}
+.local-con em {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 24px;
+  background-color: #000000;
+  line-height: 24px;
+  text-align: center;
+  color: #fefcfc;
+  font-size: 18px;
+  opacity: 0.6;
+}
+.local-con a {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  color: #c82829;
+  font-size: 16px;
+  text-overflow: ellipsis;
+  word-break: keep-all;
+  /* 不换行 */
+  white-space: nowrap;
+  /* 不换行 */
+}
+/* 底部区域 */
+.com-footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid #ccccce;
+  background: #ffffff url('../images/nav_bg.png');
+  background-size: 100% 100%;
+  z-index: 99;
+  /* 选中样式 */
+}
+.com-footer > a {
+  position: relative;
+  float: left;
+  width: 25%;
+  height: 29px;
+  padding-top: 56px;
+  text-align: center;
+  color: #5f626c;
+  font-size: 18px;
+}
+.com-footer > a:after {
+  position: absolute;
+  top: 11px;
+  left: 50%;
+  width: 62px;
+  height: 46px;
+  margin-left: -31px;
+  background: url('../images/nav_icon.png');
+  background-size: 62px;
+  content: "";
+}
+.com-footer > a:nth-child(2):after {
+  background-position-y: -59px;
+}
+.com-footer > a:nth-child(3):after {
+  background-position-y: -114px;
+}
+.com-footer > a:nth-child(4):after {
+  background-position-y: -176px;
+}
+.com-footer .select {
+  color: #c71a1c;
+  box-shadow: 0 1px 0 1px #ccccce;
+}
+.com-footer .select:after {
+  background: url('../images/nav_icon_select.png');
+  background-size: 62px;
+}
+/* 利用媒体查询处理320~480之间的手机 */
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  /* 搜索栏 */
+  .search span {
+    font-size: 18px;
+  }
+  .search input {
+    font-size: 18px;
+  }
+  /* 本地商家 */
+  .local a,
+  .local strong {
+    font-size: 18px;
+  }
+  .local-con em {
+    font-size: 16px;
+  }
+  .local-con a {
+    font-size: 14px;
+  }
+  /* 底部导航 */
+  .com-footer > a {
+    padding-top: 44.8px;
+    font-size: 14px;
+  }
+  .com-footer > a:after {
+    position: absolute;
+    top: 11px;
+    left: 50%;
+    width: 49px;
+    height: 36px;
+    margin-left: -24.5px;
+    background: url('../images/nav_icon.png');
+    background-size: 49px;
+    content: "";
+  }
+  .com-footer > a:nth-child(2):after {
+    background-position-y: -47px;
+  }
+  .com-footer > a:nth-child(3):after {
+    background-position-y: -91px;
+  }
+  .com-footer > a:nth-child(4):after {
+    background-position-y: -139px;
+  }
+  .com-footer .select {
+    box-shadow: 0 1px 0 1px #ccccce;
+  }
+  .com-footer .select:after {
+    background: url('../images/nav_icon_select.png');
+    background-size: 49px;
+  }
+}
