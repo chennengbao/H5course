@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>HTML5Course - 梦幻雪冰</title>
+	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+	<div class="wrap"></div>
+	<script type="text/javascript">
+		// 简单说，deferred对象就是jQuery的回调函数解决方案。在英语中，defer的意思是'延迟"，所以deferred对象的含义就是'延迟'到未来某个点再执行。
+
+		// ajax操作的链式写法
+		// always()这个方法也是用来指定回调函数的，它的作用是，不管调用的是deferred.resolve()还是deferred.reject()，最后总是执行。
+		$.ajax({
+			url: 'js/jquery-1.11.3.min.js',
+			type: 'get'
+		})
+		.done(function() {
+			console.log('success');
+		})
+		.fail(function() {
+			console.log('error');
+		})
+		.always(function() {
+			console.log('complete');
+		})
+		
+		// 指定同一操作的多个回调函数
+		$.ajax({
+			url: 'js/jquery-1.11.3.min.js',
+			type: 'get'
+		})
+		.done(function() {
+			console.log('success');
+		})
+		.fail(function() {
+			console.log('error');
+		})
+		.always(function() {
+			console.log('complete');
+		})		
+		.done(function() {
+			console.log('我是第二个回调函数');
+		})
+		
+		// 为多个操作指定回调函数
+		// 如果都成功了，就运行done()指定的回调函数；如果有一个失败或都失败了，就执行fail()指定的回调函数。
+		// $.when为多个操作指定回调函数。
+		$.when($.ajax({
+			url: 'js/jquery-1.11.3.min.js'
+		}), $.ajax({
+			url: 'js/jquery-1.11.3.min.js'
+		}))
+		.done(function() {
+			console.log('成功回调');
+		})
+		.fail(function() {
+			console.log('出错了');
+		});
+		
+		// 递延对象中的then方法作用于使多个异步任务按照顺序执行，而jQuery.when方法作用于在多个并发的异步任务执行完毕后再干自
+		$.ajax({
+			url: 'js/jquery-1.11.3.min.js',
+			type: 'get'
+		}).then(function(){
+			console.log('then1');
+		}, function() {
+			console.log('then2');
+		})
+
+		$.get('js/jquery-1.11.3.min.js').done(function() {
+			console.log('get');
+		});
+
+		// 不管是ajax操作还是本地操作，也不管是异步操作还是同步操作----都可以使用deferred对象的各种方法，指定回调函数。
+		var dtd = $.Deferred();
+
+		function show() {
+			function task() {
+				console.log('我执行了');
+
+				// 改变deferred对象的执行状态
+				dtd.resolve('陈能堡');
+			}
+
+			setTimeout(task, 5000);
+			return dtd;
+		}
+
+		$.when(show())
+		.done(function(data) {
+			console.log('dtd成功回调', data);
+		})
+		.fail(function() {
+			console.log('dtd出错了');
+		});
+	</script>
+</body>
+</html>
