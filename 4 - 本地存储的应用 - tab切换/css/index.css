@@ -1,0 +1,33 @@
+/* 
+* @Author: anchen
+* @Date:   2016-06-11 18:10:51
+* @Last Modified by:   anchen
+* @Last Modified time: 2016-06-11 18:12:48
+*/
+.wrap {
+    width: 600px;
+}
+.tab-tit > span {
+    float: left;
+    width: 200px;
+    height: 100px;
+    background-color: skyblue;
+    line-height: 100px;
+    text-align: center;
+    cursor: pointer;
+}
+.tab-con > div {
+    display: none;
+    height: 300px;
+    background-color: #999;
+    line-height: 300px;
+    text-align: center;
+    color: #fff;
+    font-size: 30px;
+}
+.wrap .sel {
+    background-color: rgb(68, 185, 233);
+}
+.wrap .show {
+    display: block;
+}
