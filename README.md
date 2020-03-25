@@ -1,5 +1,6 @@
-# H5course
-HTML5经典案例汇总 - 梦幻雪冰（微信：cnb718747239）
+# HTML5学堂 - [https://www.h5course.com/](https://www.h5course.com/ "https://www.h5course.com/")
+HTML5项目案例汇总 - 梦幻雪冰（微信：cnb718747239）
+
 ## 案例列表
 * 小区页面的导航栏分析与制作
 * 电商首页部分模块制作
@@ -19,3 +20,9 @@ HTML5经典案例汇总 - 梦幻雪冰（微信：cnb718747239）
 * 利用vue实现Tab切换
 * JQ 模块导航
 * JQ 图片3D旋转切换效果代码
+
+## 作者微信
+![微信](http://cdn.gk48.cn/o_1e482c5jjlbj9lot51k7bfqt9.jpg "微信")
+
+## 赞赏作者
+![赞赏](http://cdn.gk48.cn/o_1e482db5515mm1fbq117km3i1uqke.jpg "赞赏")
