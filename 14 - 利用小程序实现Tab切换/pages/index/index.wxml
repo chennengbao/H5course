@@ -1,0 +1,16 @@
+<!--index.wxml-->
+<view class="wrap">
+  <!--标题-->
+  <div class="tab-tit clearfix" bindtouchstart="tabhandler">
+    <span class="tit0 {{tabTit.titName[0]}}" data-index="0">HTML</span>
+    <span class="tit1 {{tabTit.titName[1]}}" data-index="1">CSS</span>
+    <span class="tit2 {{tabTit.titName[2]}}" data-index="2">JS</span>
+  </div>
+  <!--内容-->
+  <div class="tab-con">
+    <view class="con" hidden="{{tabTit.showName[0]}}">我是是HTML。——梦幻雪冰</view>
+    <view class="con" hidden="{{tabTit.showName[1]}}">我是CSS。——梦幻雪冰</view>
+    <view class="con" hidden="{{tabTit.showName[2]}}">我是是JS。——梦幻雪冰</view>
+  </div>
+</view>
+

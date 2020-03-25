@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>HTML5Course - 梦幻雪冰</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <style type="text/css">
+        .wrap {
+            background: black;
+        }
+        .wrap > span {
+            float: left;
+            width: 100px;
+            height: 40px;
+            border: 1px solid gray;
+            line-height: 40px;
+            text-align: center;
+            color: white;
+        }
+        .wrap > .newline {
+            /*清除左边存在的浮动*/
+            clear: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap clearfix" id="box"></div>
+    <script type="text/javascript">
+        var boxEle = document.getElementById("box"),
+            str = "";
+
+        for (var i = 1; i <= 9; i++) {
+            for (var j = 1; j <= i; j++) {
+                str = i + " * " + j + " = " + i * j;
+                // j为1元素清除左边存在的浮动
+                if (j == 1) {
+                    box.innerHTML += "<span class='newline'>" + str + "</span>";
+                } else {
+                    box.innerHTML += "<span>" + str + "</span>";
+                }
+            };
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+/**index.wxss**/
+@import "../../resource/css/weui.min.css";
+.tit2,
+.tit1,
+.tit0 {
+  float: left;
+  width: 33.33%;
+  height: 80rpx;
+  background-color: lightseagreen;
+  line-height: 80rpx;
+  text-align: center;
+}
+.tit-sel {
+  background-color: pink;
+}
+.con {
+  height: 320rpx;
+  border: 1px solid gray;
+}

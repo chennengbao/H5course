@@ -1,0 +1,23 @@
+<view class="wrap">
+  <!--首页-->
+  <view hidden="{{indexShow}}" class="index-con">
+    <view animation="{{indexAniTitData}}" class="index-tit">雾霾中的北京</view>
+    <view animation="{{indexAniBtnData}}" class="index-btn" bindtap="indexBtn">开始游戏</view>
+  </view>
+  <!--游戏操作界面-->
+  <view hidden="{{gameShow}}" class="game-info clearfix">
+    <view class="game-time">目前用时：{{gameTime}}s</view>
+    <view class="game-score">目前得分：{{gameScore}}</view>
+  </view>
+  <view hidden="{{gameShow}}" class="game-con" bindtap="gamehandler">
+    <block wx:for="{{gameList}}">
+      <view data-index="{{gameList[index].index}}" data-sel="{{gameList[index].sel}}" class="game-list" style="width:{{listSize}}rpx;height:{{listSize}}rpx;opacity:{{gameList[index].opa}};"></view>
+    </block>
+  </view>
+  <!--游戏结束页面-->
+  <view hidden="{{gameResult}}" class="game-result">
+    <view class="result-tit">游戏结束</view>
+    <view class="result-con">~您总共用时{{gameTime}}s，取得了了{{gameScore}}分~</view>
+    <view bindtap="gameAgainHandler" class="game-again">再来一次</view>
+  </view>
+</view>

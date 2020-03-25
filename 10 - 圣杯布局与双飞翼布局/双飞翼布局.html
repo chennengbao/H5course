@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>HTML5Course - 梦幻雪冰</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<style>
+		body {
+			min-width: 600px;
+		}
+		.wrap header {
+			height: 60px;
+			background-color: yellow;
+		}
+		.con-wrapper {
+			float: left;
+			width: 100%;
+		}
+		.wrap .con-left,
+		.wrap .con-right {
+			float: left;
+			width: 200px;
+			height: 400px;
+			background-color: skyblue;
+		}
+		.wrap .con-middle {
+			height: 400px;
+			margin: 0 200px;
+			background-color: green;
+		}
+		.wrap .con-left {
+			margin-left: -100%;			
+		}
+		.wrap .con-right {
+			margin-left: -200px;
+		}
+		.wrap footer {
+			height: 60px;
+			background-color: blue;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<header>头部</header>
+		<section class="clearfix">
+			<!-- 先主后左右侧边栏 -->
+			<div class="con-wrapper">
+				<div class="con-middle">梦幻雪冰 - 内容区域</div>				
+			</div>
+			<div class="con-left">左侧</div>
+			<div class="con-right">右侧</div>
+		</section>
+		<footer>底部</footer>
+	</div>
+	<script type="text/javascript"></script>
+</body>
+</html>

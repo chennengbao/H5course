@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>HTML5Course - 梦幻雪冰</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <style type="text/css">
+        .wrap {
+            width: 426px;
+            margin: 0 auto;
+            padding: 30px 0;
+        }
+        .opt-color label {
+            float: left;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+        }
+        .opt-color input {
+            float: left;
+            width: 100px;
+            height: 24px;
+            padding: 8px 0;
+            border: 1px solid pink;
+            line-height: 24px;
+            text-indent: 0.2em;
+            font-size: 20px;
+            outline: 0;
+        }
+        .show-color {
+            height: 200px;
+            margin-top: 10px;
+            border: solid 1px pink;
+        }
+        .wrap h2 {
+            line-height: 40px;
+            text-align: center;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="opt-color clearfix">
+            <label for="">红：</label>
+            <input type="text" placeholder='[0, 255]'/>
+            <label for="">绿：</label>
+            <input type="text" placeholder='[0, 255]'/>
+            <label for="">蓝：</label>
+            <input type="text" placeholder='[0, 255]'/>            
+        </div>
+        <div class="show-color"></div>
+        <h2>HTML5学堂 - 堡堡 负责制作</h2>
+    </div>
+    <script type="text/javascript">
+        var ipts = document.querySelectorAll('.opt-color input'),
+            setColor = document.querySelector('.show-color'),
+            colorArr = [];
+
+        // 绑定事件
+        for (var i = 0; i < ipts.length; i++) {
+            // 利用自定义属性
+            ipts[i].index = i;
+            ipts[i].addEventListener('blur', function() {
+                // 记录输入的数值
+                colorArr[this.index] = this.value;
+                // 设置标签的样式
+                if (colorArr.length == 3) {
+                    setColor.style.backgroundColor = 'rgb(' + colorArr[0] + ',' + colorArr[1] + ',' + colorArr[2] + ')';
+                };
+            }, false);
+        };
+
+    </script>
+</body>
+</html>

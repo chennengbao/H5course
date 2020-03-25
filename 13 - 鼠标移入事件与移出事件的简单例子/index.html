@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>HTML5Course - 梦幻雪冰</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <style type="text/css">
+        .wrap div {
+            margin-bottom: 2px;
+            border: 1px solid gray;
+            text-align: center;
+            font-size: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div>HTML5学堂 - 堡堡 - 梦幻雪冰</div>
+        <div>HTML5学堂 - 堡堡 - 梦幻雪冰</div>
+        <div>HTML5学堂 - 堡堡 - 梦幻雪冰</div>
+        <div>HTML5学堂 - 堡堡 - 梦幻雪冰</div>
+        <div>HTML5学堂 - 堡堡 - 梦幻雪冰</div>
+        <div>HTML5学堂 - 堡堡 - 梦幻雪冰</div>
+        <div>HTML5学堂 - 堡堡 - 梦幻雪冰</div>
+        <div>HTML5学堂 - 堡堡 - 梦幻雪冰</div>
+        <div>HTML5学堂 - 堡堡 - 梦幻雪冰</div>
+        <div>HTML5学堂 - 堡堡 - 梦幻雪冰</div>
+    </div>
+    <script type="text/javascript">
+        var divsEle = document.querySelectorAll('.wrap div'),
+            length = divsEle.length;
+
+        /*
+         * [init 初始化样式]
+         * @return [无返回值]
+         */
+        function init() {
+            for (var i = 0; i < length; i++) {
+                divsEle[i].style.backgroundColor = 'skyblue';
+            };            
+        }init();
+
+        for (var i = 0; i < length; i++) {
+            // 绑定鼠标移入事件
+            divsEle[i].addEventListener('mouseenter', function() {
+                this.style.backgroundColor = 'pink';
+            }, false);
+
+            // 绑定鼠标移出事件
+            divsEle[i].addEventListener('mouseleave', function() {
+                init();
+            }, false);
+        };
+    </script>
+</body>
+</html>

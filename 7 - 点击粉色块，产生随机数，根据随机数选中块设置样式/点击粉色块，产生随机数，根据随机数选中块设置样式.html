@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>HTML5Course - 梦幻雪冰</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <style type="text/css">
+        .wrap div {
+            float: left;
+            width: 200px;
+            height: 200px;
+            margin: 10px;
+            border: 1px solid gray;
+            line-height: 200px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .wrap .sel {
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap clearfix" id="outer">
+        <div class="sel">HTML5学堂网站</div>
+        <div>HTML5学堂微信</div>
+        <div>HTML5学堂QQ公众号</div>
+        <div>HTML5学堂微博</div>
+    </div>
+    <script type="text/javascript">
+        // 功能描述：用户点击外层的div，根据产生的随机数给块设置样式
+        // 获取标签
+        var outerEle = document.getElementById("outer"),
+            innerEle = outerEle.getElementsByTagName("div");
+
+        // 给父级块绑定事件
+        outerEle.onclick = function(e) {
+            randomFn(e.target);
+        }
+
+        /*
+         * [randomFn 随机选中块]
+         * @return {[type]} [无返回值]
+         * @author HTML5学堂 - 陈能堡
+         */
+        function randomFn(ele) {
+            if (ele.className == 'sel') {
+                // 产生随机数
+                var randomNum = Math.floor(Math.random() * 4);
+
+                // for循环为什么要放置在这个位置？
+                    // 想想是先清除类名再设置类名？（类似画画，黑板擦干净再画画，就能保证之前画的不会影响你现在画的）
+                    // 还是我先设置类名再清除类名？（类似画画，先画画，最后再把黑板擦干净，之前画的会不会影响你现在画的）
+                    
+                // 清空块里面的类名
+                for (var i = 0; i < innerEle.length; i++) {
+                    innerEle[i].className = "";
+                };
+
+                // 根据随机数给块设置类名         
+                innerEle[randomNum].className = "sel"; 
+            };
+        }
+    </script>
+</body>
+</html>
