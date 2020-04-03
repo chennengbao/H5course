@@ -20,6 +20,14 @@ HTML5项目案例汇总 - 梦幻雪冰（微信：cnb718747239）
 * 利用vue实现Tab切换
 * JQ 模块导航
 * JQ 图片3D旋转切换效果代码
+* 百度地图开发
+* 修改默认alert弹窗样式
+* JQ 购物车全选
+* JQ 导航栏效果
+* JQ HTML5班级选组
+* JQ与CSS3立体柱效果
+* JavaScript图片预加载
+* 音频歌曲播放器
 
 ## 作者微信
 ![微信](http://cdn.gk48.cn/o_1e482c5jjlbj9lot51k7bfqt9.jpg "微信")

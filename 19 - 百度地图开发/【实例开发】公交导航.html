@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>HTML5Course - 梦幻雪冰</title>
+    <meta name="viewport" content="width=640,user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="http://css.h5course.cn/reset-1.0.0.css" />
+    <script src="http://js.h5course.cn/zepto.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=iK8fjVzLngpY0s4lRSv0x6HY"></script>
+    <script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
+    <style type="text/css">
+        body, html, .wrap {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: "微软雅黑";
+        }
+        .wrap {
+            position: relative;
+        }
+        .pos-info {
+            border-bottom: 2px solid #999;
+            font-size: 40px;
+            line-height: 54px;
+        }
+        .search label,
+        .search input,
+        .search > div {
+            position: relative;
+            float: left;
+        }
+        .search label {
+            width: 120px;
+            height: 60px;
+            line-height: 60px;
+            font-size: 36px;
+            font-weight: bold;
+        }
+        .search input[type="text"] {
+            width: 320px;
+            height: 60px;
+            font-size: 40px;
+        }
+        .search input[type="button"] {
+            width: 140px;
+            height: 60px;
+            margin-left: 30px;
+            -webkit-appearance: none;
+            border-radius: 0;
+        }
+        .search ul {
+            overflow: hidden;
+            display: none;
+            position: absolute;
+            left: 120px;
+            top: 63px;
+            z-index: 99;
+            width: 320px;
+        }
+        .search li {
+            margin-top: -1px;
+            border-top: 1px solid #eee;
+            line-height: 46px;
+            background-color: #fff;
+            font-size: 32px;
+        }
+        .map {
+            height: 100%;
+        }
+        .distance {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 99;
+            height: 188px;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+        }
+        .distance p {
+            line-height: 100px;
+            font-size: 38px;
+            text-align: center;
+        }
+        .distance span {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            width: 200px;
+            height: 60px;
+            margin-left: -100px;
+            background-color: skyblue;
+            line-height: 60px;
+            font-size: 30px;
+            text-align: center;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="distance">
+            <p></p>
+            <span>返回</span>
+        </div>
+        <div class="pos-info">当前位置：<span></span></div>  
+        <div class="search clearfix">
+            <div>
+                <label for="start">起点：</label>
+                <input type="text" id="start" placeholder="微信：cnb718747239"/>  
+                <ul>
+                </ul>            
+            </div>
+            <div>
+                <label for="end">终点：</label>
+                <input type="text" id="end" placeholder="梦幻雪冰"/>    
+                <ul></ul>          
+            </div>
+            <div>
+                <input type="button" value="导航" /> 
+            </div>
+        </div>
+        <div id="allmap" class="map"></div>  
+    </div>
+    <script type="text/javascript">
+        // 百度地图实例化
+        var p1,p2;
+        var map = new BMap.Map("allmap");
+        map.setMapStyle({style:"grassgreen"});
+
+        // 地图根据ip地址初始化
+        $.get("http://api.map.baidu.com/location/ip?ak=iK8fjVzLngpY0s4lRSv0x6HY&coor=bd09ll", getCurrentPos, "jsonp");
+        function getCurrentPos(data){
+            var lon = data.content.point.x; // 经度
+            var lat = data.content.point.y;  // 纬度 
+            // 纠偏回调函数
+            translateCallback = function (point) { 
+                map.centerAndZoom(point, 15);
+                // var marker = new BMap.Marker(point);  // 创建标注
+                // map.addOverlay(marker);   // addOverlay添加覆盖物，将标注添加到地图中 
+                //创建小狐狸
+                var myIcon = new BMap.Icon("http://developer.baidu.com/map/jsdemo/img/fox.gif", new BMap.Size(300,157));
+                var marker = new BMap.Marker(point, {icon:myIcon});  // 创建标注
+                map.addOverlay(marker);              // 将标注添加到地图中
+                // 缩放地图
+                map.enableScrollWheelZoom(true); 
+
+            }
+            // 调用百度接口，进行纠偏
+            BMap.Convertor.translate(new BMap.Point(lon, lat), 0, translateCallback);  
+        }
+
+        // 获取当前的位置
+        $.get("http://api.map.baidu.com/location/ip?ak=iK8fjVzLngpY0s4lRSv0x6HY&coor=bd09ll&callback=showPos", showPos, "jsonp");
+        function showPos(data) {
+            // 保存城市名
+            $(".pos-info").data("address", data.address.split("|")[2]);
+
+            $.get("http://api.map.baidu.com/geoconv/v1/?coords=" + data.content.point.x + "," + data.content.point.y + "&from=5&to=5&ak=iK8fjVzLngpY0s4lRSv0x6HY", translateCallback, "jsonp");
+        }
+
+        // 坐标转换
+        function translateCallback(data) {
+            var pos = data.result[0].y + "," + data.result[0].x;
+            $.get("http://api.map.baidu.com/geocoder/v2/?ak=iK8fjVzLngpY0s4lRSv0x6HY&callback=renderReverse&location=" + pos + "&output=json&pois=0", outputAddress, "jsonp");
+        } 
+
+        // 逆地址解析
+        function outputAddress(data) {
+            $(".pos-info span").data("data-citycode", data.cityCode);
+            $(".pos-info span").text(data.result.formatted_address);
+            console.log(data);
+        }
+
+        // 建议搜索
+        // input、change、中文输入法不触发onkeyup事件的解决办法
+        $(".search input[type=text]").on("keydown input change", function(e) {
+            var _this = $(this);
+
+            $.get("http://api.map.baidu.com/place/v2/suggestion?query=" + $(this).val() + "&region=" + $(".pos-info span").data("data-citycode") + "&output=json&ak=iK8fjVzLngpY0s4lRSv0x6HY", sugAddress, "jsonp");
+            
+            $(this).siblings("ul").css({
+                "display": "block"
+            });
+        });
+        function sugAddress(data) {
+            $(".search ul li").remove();
+            for(var i = 0; i < data.result.length; i++) {
+                $(".search ul").append("<li>" + data.result[i].name + "</li>")
+            }
+        }
+
+        // 下拉框处理
+        $(document).on("tap", function(e) {
+            if (e.target.nodeName == "LI") {
+                $(e.target).parent().siblings("input").val($(e.target).text()).siblings("ul").css({
+                    "display": "none"
+                }); 
+
+                var start = $(".search input[type=text]").eq($(e.target).parent().parent().index()).val();
+                // 创建地址解析器实例
+                var myGeo = new BMap.Geocoder();
+                // 将地址解析结果显示在地图上,并调整地图视野
+                myGeo.getPoint(start, function(point){
+                    if (point) {
+                        map.centerAndZoom(point, 16);
+                        var marker = new BMap.Marker(point);
+                        map.addOverlay(marker);
+
+                        // 获取地图上的覆盖物
+                        var allOverlay = map.getOverlays();
+
+                        if ($(e.target).parent().parent().index() == 0) {
+                            // 清除重复覆盖物
+                            for (var i = 0; i < allOverlay.length -1; i++){
+                                if (allOverlay[i].getLabel) {
+                                    console.log(allOverlay[i].getLabel());
+                                    if (allOverlay[i].getLabel()) {
+                                        console.log(allOverlay[i].getLabel().content == "终点");
+                                        if(allOverlay[i].getLabel().content == "起点"){
+                                            map.removeOverlay(allOverlay[i]);
+                                        }                                                                         
+                                    };
+                                };
+                            }
+                            var label = new BMap.Label("起点", {offset:new BMap.Size(20, -10)});
+                            p1 = point;
+                        } else {
+                            // 清除重复覆盖物
+                            for (var i = 0; i < allOverlay.length -1; i++){
+                                if (allOverlay[i].getLabel) {
+                                    if (allOverlay[i].getLabel()) {
+                                        if(allOverlay[i].getLabel().content == "终点"){
+                                            map.removeOverlay(allOverlay[i]);
+                                        }                                                                         
+                                    };
+                                };
+                            }
+                            var label = new BMap.Label("终点", {offset:new BMap.Size(20, -10)});
+                            p2 = point;
+                        }
+                        marker.setLabel(label);     
+                    }else{
+                        alert("您选择地址没有解析到结果!");
+                    }
+                }, $(".pos-info").data("address"));
+            } else {
+                $(".search ul").css({
+                    "display": "none"
+                });                   
+            }
+        });
+
+        $(".search input[type=button]").tap(function() {
+            // 生成公交路线
+            var transit = new BMap.TransitRoute(map, {
+                renderOptions: {map: map}
+            });
+            transit.search(p1, p2);   
+
+           // 测试距离
+            $(".distance").fadeIn(1000, function() {
+                $(this).find("p").text("直线距离：" + map.getDistance(p1, p2).toFixed(4) + "米").siblings("span").tap(function() {
+                    $(this).parent().fadeOut(500, function() {
+                        map.clearOverlays(); 
+                    });
+                });
+            });
+            var polyline = new BMap.Polyline([p1, p2], {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});  //定义折线
+            map.addOverlay(polyline);     //添加折线到地图上 
+
+              
+        });
+
+
+
+
+    </script>
+</body>
+</html>

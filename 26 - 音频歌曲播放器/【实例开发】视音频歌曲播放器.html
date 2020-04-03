@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>酷狗播放器</title>
+    <link rel="stylesheet" type="text/css" href="http://css.h5course.cn/reset-1.0.0.css" />
+    <script src="http://js.h5course.cn/jquery-1.11.3.min.js" type="text/javascript"></script>
+	<style>
+		.wrap {
+			position: relative;
+			width: 300px;
+			height: 240px;
+			margin: 100px auto 0;
+		}
+		.wrap h2 {
+			height: 70px;
+			line-height: 50px;
+			font-size: 30px;
+			font-weight: bold;
+			text-align: center;
+		}
+		.con {
+			height: 120px;
+			margin-top: 20px;
+			font-size: 26px;
+			color:transparent; /*让文字的背景透明，才能显示渐变的效果*/
+		    background: url("bg.jpg") 0 0 no-repeat;
+			line-height: 40px;
+			font-weight: bold;
+			text-align: center;
+		    -webkit-background-clip:text;/*只有webkit内核支持text的剪切模式 ，简单的理解就是文字的地方才显示颜色，不是文字区域的不显示颜色*/	
+		}
+		.show {
+			height: 200px;
+			width: 360px;
+			margin: 0 auto;
+			background: black;
+			-webkit-transform: rotate(180deg);
+		}
+		.show div {
+			/*position: absolute;*/
+			/*bottom: 0;*/
+			float: left;
+			width: 10px;
+			margin-right: 2px;
+			background: skyblue;
+			-webkit-transition: all 1s;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<h2></h2>
+		<audio src="http://cdn.gk48.cn/o_1e4vc5hl31imr1pe5v8k1mffnbg9.mp3" controls autoplay id="music"></audio>
+		<div class="con">
+				作者：梦幻雪冰
+		</div>
+	</div>
+	<div class="show">
+	</div>
+	<script>
+		var lrc = "[ar:经典老歌][ti:爱江山更爱美人][00:31.94]道不尽红尘奢恋[00:34.39]诉不完人间恩怨[00:38.35]世世代代都是缘[00:43.64]留着相同的血[00:46.64]喝着相同的水[00:50.50]这条路漫漫又长远[00:55.75]红花当然配绿叶[00:58.75]这一辈子谁来陪[01:02.60]渺渺茫茫来又回[01:07.90]往日情景再浮现[01:10.90]藕虽断了丝还连[01:14.72]轻叹世间事多变迁[01:20.07]爱江山更爱美人[01:26.12]哪个英雄好汉宁愿孤单[01:30.17]好儿郎浑身是胆[01:38.57]壮志豪情四海远名扬[01:44.32]人生短短几个秋啊不醉不罢休[01:51.12]东边儿我的美人哪西边儿黄河流[01:57.22]来呀来个酒啊不醉不罢休[02:03.28]愁情烦事别放心头[02:33.50]道不尽红尘舍恋[02:35.95]诉不完人间恩怨[02:39.80]世世代代都是缘[02:45.05]留着相同的血[02:48.05]喝着相同的水[02:51.81]这条路漫漫又长远[02:57.16]红花当然配绿叶[03:00.11]这一辈子谁来陪[03:03.91]渺渺茫茫来又回[03:10.01]往日情景再浮现[03:12.46]藕虽断了丝还连[03:16.06]轻叹世间事多变迁[03:21.42]爱江山更爱美人[03:27.47]那个英雄好汉宁愿孤单[03:33.57]好儿郎浑身是胆[03:39.98]壮志豪情四海远名扬[03:45.68]人生短短几个秋啊不醉不罢休[03:52.43]东边我的美人哪西边黄河流[03:58.48]来呀来个酒啊不醉不罢休[04:04.63]愁情烦事别放心头[04:10.69]人生短短几个秋啊不醉不罢休[04:16.74]东边我的美人哪西边黄河流[04:22.84]来呀来个酒啊不醉不罢休[04:29.52]愁情烦事别放心头";
+
+		var music  = document.getElementById("music");
+		var lrcArr = lrc.split("[");
+		var index = 3;
+
+		for (var i = 0; i < 30; i++) {
+			$("<div></div>").appendTo(".show");
+		};
+
+		$(".wrap h2").text(lrcArr[2].split(":")[1].slice(0, -1));
+
+		music.addEventListener("timeupdate", function(){  
+	        //用秒数来显示当前播放进度
+	        // 判断歌词是不是为空
+	        // 截取歌词前面的时间，并把歌词的时间单位转换为秒数
+	        var time  	= 0,
+	        	 min 	= 0,
+	        	 sec 	= 0,
+	        	 minsec = 0;
+
+        	if (index < lrcArr.length) {
+	        	time = lrcArr[index].split("]")[0];
+	        	console.log(time);
+	        	// 获取分钟
+	        	min = time.substr(0, 2);
+	        	// 获取秒
+	        	sec = time.substr(3, 5);
+	        	// 获取毫秒
+	        	minsec = time.substr(6, 8);
+		        if (parseInt(music.currentTime) == min * 60 + parseInt(sec)) {
+		        	$(".con").text(lrcArr[index].split("]")[1].slice(0));
+		        	index++;
+		        };		
+        	};
+
+	        // 模拟音律
+	        for (var i = 0; i < 30; i++) {
+	        	$(".show div").eq(i).css({
+	        		"height": Math.ceil(Math.random() * 199) + "px"
+	        	});       	
+	        };
+
+	    }, false); 
+	</script>
+</body>
+</html>

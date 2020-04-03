@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>HTML5Course - 梦幻雪冰</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/index.css">
+	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+	<div class="wrap">
+		<div>
+			<ul class="clearfix">
+				<li><p></p><div></div></li>
+				<li><p></p><div></div></li>
+				<li><p></p><div></div></li>
+				<li><p></p><div></div></li>
+				<li><p></p><div></div></li>
+				<li><p></p><div></div></li>
+				<li><p></p><div></div></li>
+				<li><p></p><div></div></li>
+				<li><p></p><div></div></li>
+			</ul>		
+		</div>
+		<div class="mask">
+			<span>开始</span>
+		</div>
+	</div>
+	<script>
+		var liArr 		= $(".wrap li");
+		var pArr 		= $(".wrap p");
+		var divArr 		= $(".wrap li div");
+		var result		= [0, 1, 2, 3, 4, 5, 6, 7, 8];
+		var len 		= result.length;
+		var paretnUl 	= $(".wrap ul"); 
+		var index 		= 0;
+		var count 		= 0; 
+
+		// 随机初始化
+		function randomInitial() {
+			for (var i = 0; i < len; i++) {
+				var roundNum = Math.floor(Math.random() * result.length);
+
+				index = result.splice(roundNum, 1)[0];
+
+				if (i <= 3) {
+					divArr.eq(index).css({
+						"background": "url(images/r.jpg) center center no-repeat",
+						"background-size": "contain"
+					});
+				} else if(i <= 7) {
+					divArr.eq(index).css({
+						"background": "url(images/g.jpg) center center no-repeat",
+						"background-size": "contain"
+					});
+				} else {
+					divArr.eq(index).css({
+						"background-color": "white",
+						"width": "130px",
+						"height": "130px",
+						"border": "15px solid #999"
+					});
+				}
+			};	
+		}
+
+		// 展示立体
+		function stereoscopic() {
+			var text = null;
+
+			for (var i = 0; i < 9; i++) {
+				liArr.eq(i).css({
+					"position": "absolute",
+					"left": "50%",
+					"top": "50%",
+					"margin": "-80px 0 0 -80px",
+					"transform": "rotateY(" + (i + 1) * 45 +  "deg) translateZ(400px)"
+				});		
+
+				switch(i) {
+					case 0: text = "高某";break;
+					case 1: text = "熊某";break;
+					case 2: text = "连某";break;
+					case 3: text = " 陈某";break;
+					case 4: text = "凌某";break;
+					case 5: text = "王某";break;
+					case 6: text = "苏某";break;
+					case 7: text = "祝某";break;
+					case 8: text = "林某";break;
+				}
+
+				liArr.css({
+					"background": "skyblue",
+					"width": "130px",
+					"height": "130px",
+					"border": "15px solid #999",
+					"border-radius": "50%"
+				}).eq(i).text(text);
+			};
+
+			// 正面隐藏
+			divArr.css({
+				"display": "none"
+			});
+
+			// 背面可以见
+			divArr.css({
+				"backface-visibility": "visible"
+			});
+
+			// 添加动画
+			paretnUl.addClass("show-rotate");
+		}
+
+		// 随机初始化
+		randomInitial();
+
+		// 选择
+		liArr.click(function() {
+			var isSel = true;
+			_this = $(this);
+			_this.addClass('selected');
+
+			liArr.each(function() {
+				if (!$(this).hasClass('selected')) {
+					isSel = false;
+				};
+			});
+
+			if (isSel) {
+				setTimeout(stereoscopic, 3000);
+			};	
+		});
+
+		// 点击开始
+		$(".mask span").click(function() {
+			_this = $(this);
+
+			_this.parent().animate({
+				"top": "50%",
+				"bottom": "50%"
+			}, 1000, function() {
+				_this.hide(1000);
+			});
+		});
+	</script>
+</body>
+</html>

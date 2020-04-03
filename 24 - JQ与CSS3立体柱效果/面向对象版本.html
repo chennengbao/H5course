@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>HTML5学堂 - 梦幻雪冰</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<script src="js/jquery-1.8.3.min.js"></script>
+	<style>
+		html, body {
+			height: 100%;
+			background: url('images/bac.jpg') 0 0 repeat;
+		}
+		.wrap {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 100px;
+			height: 100px;
+			margin-left: -50px;
+			margin-top: -50px;
+			-webkit-transform-style: preserve-3d;
+		}
+		.wrap div {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 60px;
+			height: 60px;
+			margin-left: -30px;
+			margin-top: -30px;
+			text-align: center;
+			line-height: 60px;
+			font-size: 32px;
+			font-weight: bold;
+			color: #fff;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+		}
+	</style>
+	<style id="keyframes">
+	</style>
+</head>
+<body>
+	<div class="wrap">
+
+	</div>
+	<script type="text/javascript">
+
+
+
+		/*
+		 * [RoundChange 构造函数]
+		 * @param  {[数字]} divCount [description]
+		 * @param  {[数字]} everyDeg [description]
+		 * @param  {[数字]} transZ   [description]
+		 * @param  {[字符串]} orient   [description]
+		 * @param  {[数字]} speed    [description]
+		 * @param  {[数字]} startDeg [description]
+		 * @return {[无]}          [description]
+		 */
+		function RoundChange(divCount, everyDeg, transZ, orient, speed, startDeg) {
+			this.htmlSize = $("html");
+			this.divParent 	= $(".wrap");
+			this.divArr 	= null;
+			this.divCount 	= divCount;
+			this.everyDeg 	= everyDeg;
+			this.transZ 	= transZ;
+			this.orient 	= orient;
+			this.speed 		= speed;
+			this.startDeg 	= startDeg;
+
+			this.initial();
+		}
+
+		RoundChange.prototype.initial = function() {
+			if (!this.orient) {
+				this.orient = "X";
+			};
+
+			if (!this.speed) {
+				this.speed = 8;
+			};
+
+			if (!this.startDeg) {
+				this.startDeg = 0;
+			};
+
+			// 创建标签，设置颜色
+			for (var i = 0; i < this.divCount; i++) {
+				this.temp = $("<div>" + i + "</div>");
+				this.r = Math.floor(Math.random() * 256);
+				this.g = Math.floor(Math.random() * 256);
+				this.b = Math.floor(Math.random() * 256);
+				this.o = Math.floor(Math.random() * 11) / 10;
+				this.temp.css({
+					"background-color": "rgba("+ this.r +", " + this.g+ ", " + this.b + ", "+ this.o + ")"
+				});
+				this.temp.appendTo(this.divParent);
+			};
+
+			this.divArr = this.divParent.children();
+			this.layout();
+		}
+
+		RoundChange.prototype.layout = function() {
+			var instance = this;
+			// 计算每个块Y轴移动多少距离
+			
+			if (this.orient == 'X') {
+				this.htmlSize = this.htmlSize.width();
+				this.wrapDis = this.divParent.offset().left;
+				this.wrapSize = this.divParent.width();
+			} else {
+				this.htmlSize = this.htmlSize.height();
+				this.wrapDis = this.divParent.offset().top;
+				this.wrapSize = this.divParent.height();
+			}
+
+			this.startTrans = -1 * this.wrapDis;
+			this.everyTrans = (this.htmlSize - this.wrapSize)/ this.divCount;
+
+			console.log(this.everyTrans);
+			this.divArr.each(function(index) {
+				var _this = $(this);
+
+				_this.css({
+					"transform": "rotate" + instance.orient + "(" + instance.everyDeg *  index + "deg)  translateZ(" + instance.transZ + "px) translate" + instance.orient + "("+ (instance.startTrans + (instance.everyTrans * index)) + "px)" 
+				});
+
+			});
+
+			this.sport();
+		}
+
+		RoundChange.prototype.sport = function() {
+			this.divParent.css({
+				'-webkit-animation' :  'rot ' + this.speed + 's linear infinite'
+			});
+			$('#keyframes').html('@-webkit-keyframes rot {0% {-webkit-transform: rotate' + this.orient + '(' + this.startDeg + 'deg);} 100% {-webkit-transform: rotate' + this.orient + '(360deg);}}');
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		// div个数，每个div转动的角度，z轴移动多少，水平或者垂直，速度，起始角度
+		new RoundChange(120, 20, 150, "X", 10, 0);
+	</script>
+</body>
+</html>

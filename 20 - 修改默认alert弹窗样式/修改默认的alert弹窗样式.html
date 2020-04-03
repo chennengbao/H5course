@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>HTML5Course - 梦幻雪冰</title>
+    <link rel="stylesheet" type="text/css" href="http://css.h5course.cn/reset-1.0.0.css" />
+    <script src="http://js.h5course.cn/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <style>
+        html,body {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap"></div>
+    <script>
+        window.alert = function(text) {
+            // 创建新标签
+            var newAlert = $("<div>" + text + "</div>");
+            var newBtn = $("<div>关闭</div>");
+
+            // 标签添加样式
+            newAlert.css({
+                "position": "fixed",
+                "left": "50%",
+                "top": "50%",
+                "height": "100px",
+                "width": "200px",
+                "margin": -50 + "px" + " 0 0 " + -100 + "px",
+                "background-color": "skyblue"
+            });
+            newBtn.css({
+                "position": "absolute",
+                "left": "50%",
+                "bottom": "20px",
+                "width": "60px",
+                "height": "40px",
+                "margin-left": "-30px",
+                "background-color": "gray",
+                "line-height": "40px",
+                "text-align": "center",
+                "cursor": "pointer"
+            });
+
+            // 把标签添加到文档里面
+            $("body").append(newAlert);
+            newAlert.append(newBtn);
+
+            // 标签绑定事件
+            newBtn.click(function() {
+                $(this).parent().hide();
+            });
+        }
+        alert("陈能堡");
+    </script>
+</body>
+</html>

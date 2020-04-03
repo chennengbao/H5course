@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>路线导航</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="http://css.h5course.cn/reset-1.0.0.css" />
+    <script src="http://js.h5course.cn/jquery-1.11.3.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=iK8fjVzLngpY0s4lRSv0x6HY"></script>
+	<style>
+		html,body {
+			height: 100%;
+		}
+		.map {
+			height: 90%;
+		}
+		.opt {
+			height: 10%;
+			line-height: 400%;
+		}
+	</style>
+</head>
+<body>
+	<div class="opt">
+		<label for="">输入起点：</label>
+		<input type="text" name="" value="" placeholder="梦幻雪冰">
+		<label for="">输入终点：</label>
+		<input type="text" name="" value="" placeholder="梦幻雪冰">
+		<button>搜索</button>
+	</div>
+	<div id="container" class="map"></div>
+</body>
+</html>
+<script type="text/javascript">
+		var newScript = document.createElement("script");
+		var ipt = $(".opt input");
+		var map = new BMap.Map("container");  
+		var city = null;
+		var p1,p2;
+
+		document.body.appendChild(newScript);
+		newScript.src="http://api.map.baidu.com/location/ip?ak=iK8fjVzLngpY0s4lRSv0x6HY&coor=bd09ll&callback=showPos";
+
+		function showPos(data) {
+			// 根据IP获取当前的城市
+			city = data.address.split("|")[2];
+
+			// 百度地图API功能
+			// 创建Map实例
+			map.centerAndZoom(city, 15); 
+			//启用滚轮放大缩小，默认禁用
+			map.enableScrollWheelZoom();   
+			//启用地图惯性拖拽，默认禁用 
+			map.enableContinuousZoom();  
+
+			// 左上角，添加比例尺
+			var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});
+			// 左上角，添加默认缩放平移控件
+			var top_left_navigation = new BMap.NavigationControl();  
+			var top_right_navigation = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}); 
+			//添加控件和比例尺
+			map.addControl(top_left_control);        
+			map.addControl(top_left_navigation);     
+			map.addControl(top_right_navigation); 
+		}
+
+		ipt.blur(function() {
+			var _this = $(this);
+			var start = $(this).val();
+
+			// 创建地址解析器实例
+			var myGeo = new BMap.Geocoder();
+			// 将地址解析结果显示在地图上,并调整地图视野
+			myGeo.getPoint(start, function(point){
+				if (point) {
+					map.centerAndZoom(point, 16);
+					var marker = new BMap.Marker(point);
+					map.addOverlay(marker);
+
+					if (_this.index() == 1) {
+						var label = new BMap.Label("起点", {offset:new BMap.Size(20,-10)});
+						p1 = point;
+					} else {
+						var label = new BMap.Label("终点", {offset:new BMap.Size(20,-10)});
+						p2 = point;
+					}
+					
+					marker.setLabel(label);		
+
+
+				}else{
+					alert("您选择地址没有解析到结果!");
+				}
+			}, city);
+		});
+
+		$(".opt button").click(function() {
+			var transit = new BMap.TransitRoute(map, {
+				renderOptions: {map: map}
+			});
+			transit.search(p1, p2);		
+		});
+
+</script>
+</body>
+</html>

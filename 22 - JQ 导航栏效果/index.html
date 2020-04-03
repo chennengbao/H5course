@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>HTML5Course - 梦幻雪冰</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	<style>
+		html,body {
+			height: 100%;
+		}
+		.wrap {
+			position: relative;
+			height: 800px;
+			padding-top: 50px;
+		}
+		.con {
+			height: 600px;
+			width: 400px;
+			background-color: #999;
+		}
+		.nav {
+			position: absolute;
+			right: 50px;
+			top: 30px;
+			width: 150px;
+		}
+		.nav div {
+			margin-bottom: 2px;
+		}
+		.nav h2:hover {
+			background-color: rgba(63, 104, 124, 0.4);
+		}
+		.nav h2 {
+			height: 50px;
+			background-color: #eee;
+			line-height: 50px;
+			font-size: 20px;
+			text-align: center;
+			cursor: pointer;
+			border-radius: 50px;
+		}
+		.nav ul {
+			display: none;
+		}
+		.nav li {
+			height: 30px;
+			margin-bottom: 2px;
+			background-color: rgba(0, 0, 0, 0.5);
+			line-height: 30px;
+			text-align: center;
+		}
+		.nav li:hover {
+			background-color: rgba(63, 104, 124, 0.4);
+		}
+		.nav .sel {
+			background-color: rgba(123, 123, 123, 0.4);
+			border-radius: 30px 0 0 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="con">
+			
+		</div>
+		<div class="nav">
+			<div>
+				<h2>梦幻雪冰</h2>
+				<ul status="close">
+					<li>11</li>
+					<li>12</li>
+					<li>13</li>
+				</ul>
+			</div>
+			<div>
+				<h2>梦幻雪冰</h2>
+				<ul status="close">
+					<li>21</li>
+					<li>22</li>
+					<li>23</li>
+					<li>23</li>
+					<li>21</li>
+					<li>22</li>
+					<li>23</li>
+					<li>23</li>
+				</ul>
+			</div>
+			<div>
+				<h2>梦幻雪冰</h2>
+				<ul status="close">
+					<li>31</li>
+					<li>32</li>
+					<li>33</li>
+					<li>33</li>
+					<li>21</li>
+					<li>22</li>
+					<li>23</li>
+					<li>23</li>
+				</ul>
+			</div>
+			<div>
+				<h2>HTML5学堂</h2>
+				<ul status="close">
+					<li>41</li>
+					<li>42</li>
+					<li>43</li>
+				</ul>
+			</div>
+			<div>
+				<h2>HTML5学堂</h2>
+				<ul status="close">
+					<li>41</li>
+					<li>42</li>
+					<li>43</li>
+				</ul>
+			</div>
+			<div>
+				<h2>HTML5学堂</h2>
+				<ul status="close">
+					<li>41</li>
+					<li>42</li>
+					<li>43</li>
+				</ul>
+			</div>
+			<div>
+				<h2>HTML5学堂</h2>
+				<ul status="close">
+					<li>41</li>
+					<li>42</li>
+					<li>43</li>
+				</ul>
+			</div>			
+		</div>		
+	</div>
+	<script>
+		var navBtn = $(".nav h2");
+		var ulArr = $(".nav ul");
+		var hArr = [];
+		var bo = $("body");
+		var nav = $(".nav");
+		var win = $(window);
+		var con = $(".con");
+
+		for (var i = 0; i < ulArr.length; i++) {
+			// 保存当前所有ul的高度
+			hArr[i] = ulArr.eq(i).height();
+		};
+
+		navBtn.click(function() {
+			var _this = $(this);
+			var ul = _this.siblings('ul');
+			var ulH = ul.height();
+
+			scrollNav();
+
+			_this.addClass('sel');
+
+			// 遍历是打开的状态就显示关闭状态
+			ulArr.each(function() {
+				var _this = $(this);
+				if (_this.attr("status") == "open") {
+					_this.stop(true, true).animate({
+						"height": "0"
+					}, 1000, function() {
+						_this.css("display", "none").attr("status", "close");
+						_this.siblings('h2').removeClass('sel');
+					})
+				};
+			});
+
+			// 只要是关闭状态就显示打开的状态
+			if (ul.attr("status") == "close") {
+				// 把当前的ul设置为打开状态
+				ul.attr("status", "open");
+				ul.css({
+					"display": "block",
+					"height": "0"
+				}).stop(true, true).animate({
+					"overflow": "hidden",
+					"height": hArr[_this.parent("div").index()] + "px"
+				}, 1000)
+			}
+		});
+
+		var boScrollHeight = bo[0].scrollHeight - win.height();
+		win.scroll(function() {
+			scrollNav();
+		});
+
+		function scrollNav() {
+			// 计算比例
+			var scale = (con.height()- nav.height()) / boScrollHeight;
+			nav.stop(true, true).animate({
+				"top": (bo.scrollTop() * scale) + con.offset().top + "px"
+			}, 1000)
+		}
+	</script>
+</body>
+</html>
